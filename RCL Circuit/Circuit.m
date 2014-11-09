@@ -99,3 +99,38 @@ frame = getframe(fh);
 im = frame2im(frame);
 [imind,cm] = rgb2ind(im,256);
 imwrite(imind,cm,'response.gif','gif', 'Loopcount',inf);
+
+%Sweep across the FM spectrum, tuning to each frequency 
+fRange = (87.5:.1:108)*10^6;
+gif_fps = 12; %Framerate for our output
+frequencySweep = true;
+if frequencySweep
+    for i = 1:length(fRange);
+        %The capacitence for the current frequemcies
+        C = 1/((2*pi*fRange(i))^2 * L);
+        w_0 = sqrt(1/(L*C));
+        plot(87.5:0.0001:108,response(L,R,(87.5:0.0001:108).*(2*pi*10^6),w_0))
+        xlabel('Frequency (MHz)');
+        ylabel('Gain (dB)');
+        axis([87.5 108 -55 0]);
+        title(strcat('Output Amplitude over FM Spectrum (f_o=',num2str(sqrt(1/(L*C))/2/pi*10^-6,4),'MHz \Delta f=',num2Str(R/(2*pi*L)*10^-6, 3), 'MHz )'));
+       
+        %Make sure we actually get plotted
+        drawnow;
+        %save current frame
+        frame = getframe(fh);
+        %render frame as image
+        im = frame2im(frame);
+        [imind,cm] = rgb2ind(im,256);
+        %Save the gif, appending each new frame to the gif 
+        if i == 1;
+            %if this is the first frame, save it to a new gif
+            imwrite(imind,cm,'sweep.gif','gif', 'Loopcount',inf);
+        else
+            %for all the other frames, just append to the file
+            imwrite(imind,cm,'sweep.gif','gif','WriteMode','append','DelayTime',1/gif_fps);
+        end
+        %So we know which frame we're on
+       
+    end
+end
