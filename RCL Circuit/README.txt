@@ -1,0 +1,1 @@
+A simple radio filter modeled in MATLAB. Capable of tuning to any arbitrary frequency in the FM spectrum (87.5MHz to 108MhZ). Bandwidth of 100KHz, as is standard for US radios. Included are a sample waveform, a frequency response curve for 104.3Mhz and a gif of the frequency response curve as the capacitance is modulator to sweep continuously across the FM spectrum.
