@@ -1,12 +1,13 @@
-function [ res ] = RCLSeriesResponse(C,R,L,V,fs)
+function [ res ] = RCLSeriesResponse(C,R,L,fs)
 %RCLSeriesResponse
 %   Plots the frequency response for a simple series RCL bandpass filter.
 %   Params:
 %       C - Capacitance (F)
 %       R - Resistance (Ohm)
 %       L - Inductance (h)
-%       V - voltage supply (V)
 %       fs - Frequencies to test (vector, MHz)
+%   Returns:
+%       res - Response (dB)
 
 
     fs = fs.*(2*pi*10^6); %frequencies to test
@@ -24,12 +25,5 @@ function [ res ] = RCLSeriesResponse(C,R,L,V,fs)
     xlabel('Frequency (MHz)');
     ylabel('Gain (dB)');
     title(strcat('Output Amplitude versus Signal Frequency (f_o=',num2str(sqrt(1/(L*C))/2/pi*10^-6,4),'MHz, \Delta f=',num2Str(R/(2*pi*L)*10^-6, 3), 'MHz )'));
-    %make sure it's drawn
-    drawnow;
-    frame = getframe(fh);
-    %save to image
-    im = frame2im(frame);
-    [imind,cm] = rgb2ind(im,256);
-    imwrite(imind,cm,'response.gif','gif', 'Loopcount',inf);
 end
 
