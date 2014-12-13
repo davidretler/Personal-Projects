@@ -12,3 +12,4 @@ Also includes a function for generating an FM waveform given a carrier frequency
 ![](FM.png?raw=true)
 ![](response.gif?raw=true)
 ![](Radio.png?raw=true)
+![](sweep.gif?raw=true)
