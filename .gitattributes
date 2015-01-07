@@ -22,5 +22,4 @@
 *.RTF	 diff=astextplain
 
 *.nb binary
-
 *.m diff=matlab
